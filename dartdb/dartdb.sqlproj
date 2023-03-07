@@ -74,4 +74,7 @@
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="dartdb.publish.xml" />
+  </ItemGroup>
 </Project>
