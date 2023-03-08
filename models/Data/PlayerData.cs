@@ -19,7 +19,7 @@ public class PlayerData : IPlayerData
 
     public async Task<PlayerModel> GetUser(int id)
     {
-        var results = await _db.LoadData<PlayerModel, dynamic>(storedprocedure: "dbo.getplayer", new { Id = id });
+        var results = await _db.LoadData<PlayerModel, dynamic>(storedprocedure:"dbo.getplayer", new { Id = id });
 
         return results.FirstOrDefault();
     }

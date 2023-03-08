@@ -78,9 +78,9 @@
     <None Include="dartdb.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\modelsTests\modelsTests.csproj">
-      <Name>modelsTests</Name>
-      <Project>{8011b9e0-a66d-48c0-9f52-cccd5c5a8e35}</Project>
+    <ProjectReference Include="..\Api\Api.csproj">
+      <Name>Api</Name>
+      <Project>{75cce9dc-91c9-438b-90e5-93d83e658f93}</Project>
       <Private>True</Private>
       <IsModelAware>True</IsModelAware>
       <GenerateSqlClrDdl>True</GenerateSqlClrDdl>

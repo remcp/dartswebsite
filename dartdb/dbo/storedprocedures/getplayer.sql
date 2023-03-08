@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[getplayers]
+﻿CREATE PROCEDURE [dbo].[getplayer]
  @id int
 AS
 begin
