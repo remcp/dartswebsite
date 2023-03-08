@@ -9,7 +9,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "dartdb", "dartdb\dartdb.sql
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "models", "models\models.csproj", "{36853478-AE7B-4D01-A105-93134A765061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "modelsTests", "modelsTests\modelsTests.csproj", "{8011B9E0-A66D-48C0-9F52-CCCD5C5A8E35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "modelsTests", "modelsTests\modelsTests.csproj", "{8011B9E0-A66D-48C0-9F52-CCCD5C5A8E35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

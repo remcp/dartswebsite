@@ -1,8 +1,16 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using models.Data;
+using models;
+using dartswebsite;
+using models.DataAcces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSingleton<IDataAcces, DataAcces>();
+builder.Services.AddSingleton<IPlayerData, PlayerData>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,5 +29,5 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
+app.ConfigureApi();
 app.Run();

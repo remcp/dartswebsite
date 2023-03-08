@@ -17,7 +17,7 @@ public class PlayerData : IPlayerData
 
     public Task<IEnumerable<PlayerModel>> GetUsers() => _db.LoadData<PlayerModel, dynamic>(storedprocedure: "dbo.getallplayers", new { });
 
-    public async Task<PlayerModel?> GetUser(int id)
+    public async Task<PlayerModel> GetUser(int id)
     {
         var results = await _db.LoadData<PlayerModel, dynamic>(storedprocedure: "dbo.getplayer", new { Id = id });
 
