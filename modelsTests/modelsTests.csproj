@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\dartdb\dartdb.sqlproj" />
-    <ProjectReference Include="..\models\models.csproj" />
   </ItemGroup>
 
 </Project>

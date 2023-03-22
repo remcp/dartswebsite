@@ -9,7 +9,7 @@ namespace Api.Data
         {
             _db = db;
         }
-
+        
         public Task<IEnumerable<PlayerModel>> GetUsers() => _db.LoadData<PlayerModel, dynamic>(storedprocedure: "[dbo].[getallplayers]", new { });
 
         public async Task<PlayerModel> GetUser(int id)
