@@ -12,5 +12,6 @@
             playername = playermodel.playername;
             score = playermodel.score;
         }
+        public PlayerViewModel(){}
     }
 }
