@@ -1,36 +1,32 @@
 ﻿using Api.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace logic.controllers
 {
-    internal class PlayerController
+    public class PlayerCollection
     {
-        public async Task<List<Models.PlayerModel>> GetAllplayers(IPlayerdata data)
+        public List<Models.PlayerModel> models;
+        readonly IPlayerdata _playerdata;
+        public async Task<List<Models.PlayerModel>> GetAllplayers()
         {
             List<Api.PlayerModel> entitylist = new List<Api.PlayerModel>();
 
-            entitylist = (List<Api.PlayerModel>)await data.GetUsers();
+            entitylist = (List<Api.PlayerModel>)await _playerdata.GetUsers();
 
             List<Models.PlayerModel> playerlist = new List<Models.PlayerModel>();
 
             foreach (Api.PlayerModel player in entitylist)
             {
-                playerlist.Add(new Api.PlayerModel(player));
+                playerlist.Add(new Models.PlayerModel(player));
             }
-
+            models = playerlist;
             return playerlist;
         }
 
-        public async Task<Api.PlayerModel> Getplayer(IPlayerdata data, int id)
+        public async Task<Models.PlayerModel> Getplayer(int id)
         {
-            return new Api.PlayerModel(await data.GetUser(id));
+            return  new Models.PlayerModel(await _playerdata.GetUser(id));
         }
 
-        public async Task Insertplayer(IPlayerdata data, Api.PlayerModel player)
+        public async Task Insertplayer(Models.PlayerModel player)
         {
             Api.PlayerModel insertplayer = new Api.PlayerModel()
             {
@@ -38,10 +34,11 @@ namespace logic.controllers
                 score= player.score,
             };
 
-            await data.InsertPlayer(insertplayer);
+            await _playerdata.InsertPlayer(insertplayer);
+            models.Add(player);
         }
 
-        public async Task Updateplayer(IPlayerdata data, Api.PlayerModel player)
+        public async Task Updateplayer(logic.Models.PlayerModel player)
         {
             Api.PlayerModel updateplayer = new Api.PlayerModel()
             {
@@ -50,10 +47,10 @@ namespace logic.controllers
                 score = player.score,
             };
 
-            await data.UpdatePlayer(updateplayer);
+            await _playerdata.UpdatePlayer(updateplayer);
         }
 
-        public async Task UpdatePassword(IPlayerdata data, Api.PlayerModel player)
+        public async Task UpdatePassword(Api.PlayerModel player)
         {
             Api.PlayerModel updateplayer = new Api.PlayerModel()
             {
@@ -61,12 +58,12 @@ namespace logic.controllers
                 score = player.score,
             };
 
-            await data.UpdatePlayer(updateplayer);
+            await _playerdata.UpdatePlayer(updateplayer);
         }
 
-        public async Task Deleteplayer(IPlayerdata data, int id)
+        public async Task Deleteplayer(int id)
         {
-            await data.DeletePlayer(id);
+            await _playerdata.DeletePlayer(id);
         }
     }
 }
