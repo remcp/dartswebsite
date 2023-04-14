@@ -1,29 +1,46 @@
-﻿//namespace DAL
-//{
-//    public static class DALConfig
-//    {
-//        public static void ConfigureApi(this WebApplication app)
-//        {
-//            app.MapGet(pattern: "/Users", GetUsers);
-//            app.MapGet(pattern: "/Users/{id}", GetUser);
-//            app.MapPost(pattern: "/Users", InsertUser);
-//        }
+using IDAL.Data;
 
-//        public static async Task<IResult> GetUsers(IPlayerdata data)
-//        {
-//            return Results.Ok(await data.GetUsers());
-//        }
+namespace DAL;
 
-//        public static async Task<IResult> GetUser(IPlayerdata data, int id)
-//        {
-//            var results = Results.Ok(await data.GetUser(id));
-//            return results;
-//        }
+public static class ApiConfig
+{
+    public static void ConfigureApi(this WebApplication app)
+    {
+        app.MapGet(pattern: "/Players", GetPlayers);
+        app.MapGet(pattern: "/Players/{id}", GetPlayer);
+        app.MapPost(pattern: "/Players", InsertPlayer);
+        app.MapPut(pattern: "/Players", UpdatePlayer);
+        app.MapDelete(pattern: "/Players/{id}", DeletePlayer);
+    }
 
-//        public static async Task<IResult> InsertUser(IPlayerdata data, PlayerModel player)
-//        {
-//            await data.InsertPlayer(player);
-//            return Results.Ok();
-//        }
-//    }
-//}
+    //Players
+    private static async Task<IResult> GetPlayers(IPlayerdata data)
+    {
+        return Results.Ok(await data.GetPlayer());
+    }
+
+    private static async Task<IResult> GetPlayer(IPlayerdata data, int id)
+    {
+        var results = Results.Ok(await data.GetPlayer(id));
+        return results;
+    }
+
+
+    private static async Task<IResult> InsertPlayer(IPlayerdata data, Models.Player Player)
+    {
+        await data.InsertPlayer(Player);
+        return Results.Ok();
+    }
+
+    private static async Task<IResult> UpdatePlayer(IPlayerdata data, Models.Player Player)
+    {
+        await data.UpdatePlayer(Player);
+        return Results.Ok();
+    }
+
+    private static async Task<IResult> DeletePlayer(IPlayerdata data, int id)
+    {
+        await data.DeletePlayer(id);
+        return Results.Ok();
+    }
+}

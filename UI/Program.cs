@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDataServices();
 builder.Services.AddLogicServices();
 var app = builder.Build();

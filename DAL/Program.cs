@@ -3,10 +3,12 @@ global using DAL.Data;
 using DAL.DataAcces;
 using DAL;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenDAL at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDataServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Services.AddSingleton<IDBaccess, Dbaccess>();
@@ -24,6 +26,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.ConfigureApi();
+app.ConfigureApi();
 
 app.Run();
