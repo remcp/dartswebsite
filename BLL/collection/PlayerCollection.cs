@@ -53,7 +53,7 @@ namespace BLL.collection
             }
             catch (Exception ex)
             {
-                throw new Exception("Player does not exist");
+                throw new Exception(ex.Message);
             }
 
             if (player.playerpwd == password)

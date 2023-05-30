@@ -13,5 +13,6 @@ public static class ServicesConfiguration
         services.AddSingleton<DapperContext>();
         services.AddSingleton<IDbAccess, Dbaccess>();
         services.AddSingleton<IPlayerdata, Playerdata>();
+        services.AddSingleton<IGamedata, Gamedata>();
     }
 }
