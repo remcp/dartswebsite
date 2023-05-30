@@ -23,7 +23,7 @@ namespace logic.controllers
 
         public async Task<Models.PlayerModel> Getplayer(int id)
         {
-            return  new Models.PlayerModel(await _playerdata.GetUser(id));
+            return new Models.PlayerModel(await _playerdata.GetUser(id));
         }
 
         public async Task Insertplayer(Models.PlayerModel player)
@@ -31,7 +31,7 @@ namespace logic.controllers
             Api.PlayerModel insertplayer = new Api.PlayerModel()
             {
                 playername = player.playername,
-                score= player.score,
+                score = player.score,
             };
 
             await _playerdata.InsertPlayer(insertplayer);

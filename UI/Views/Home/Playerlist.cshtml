@@ -1,0 +1,48 @@
+﻿@model List<dartwebsite.models.PlayerViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].playername)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].playerpwd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].score)
+            </th>
+            @* <th> *@
+            @*     @Html.DisplayNameFor(model => model.UserPwd) *@
+            @* </th> *@
+            <th class="text-end pe-5">
+                Acties
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.playername)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(modelItem => item.playerpwd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.score)
+                </td>
+                @* <td> *@
+                @*     @Html.DisplayFor(modelItem => item.UserPwd) *@
+                @* </td> *@
+            </tr>
+        }
+    </tbody>
+</table>

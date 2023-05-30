@@ -12,9 +12,9 @@ namespace dartwebsite.models
 
         public PlayerViewModel(PlayerModel playermodel)
         {
-            id = playermodel.id;
-            playername = playermodel.playername;
-            score = playermodel.score;
+            id = playermodel.Player_id;
+            playername = playermodel.Name;
+            score = playermodel.Score;
         }
         public PlayerViewModel(){}
     }

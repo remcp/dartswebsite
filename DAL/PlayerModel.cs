@@ -2,9 +2,9 @@
 {
     public class PlayerModel
     {
-        public int id { get; set; }
-        public string playername { get; set; }
-        public string playerpwd { get; set; }
-        public int score { get; set; }
+        public int Player_id { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public int Score { get; set; }
     }
 }

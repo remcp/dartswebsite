@@ -24,6 +24,11 @@ namespace BLL.collection
             return await _data.GetPlayer(id);
         }
 
+        public async Task<Player> GetPlayerByName(string name)
+        {
+            return await _data.GetPlayerByName(name);
+        }
+
         public async Task InsertPlayer(Player Player)
         {
             await _data.InsertPlayer(Player);
@@ -39,12 +44,12 @@ namespace BLL.collection
             await _data.DeletePlayer(id);
         }
 
-        public async Task<bool> CheckCredentials(int id, string password)
+        public async Task<bool> CheckCredentials(string name, string password)
         {
             Player player = new Player();
             try
             {
-                player = await _data.GetPlayer(id);
+                player = await _data.GetPlayerByName(name);
             }
             catch (Exception ex)
             {

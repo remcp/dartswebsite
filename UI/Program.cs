@@ -1,6 +1,5 @@
 using DAL;
 using BLL;
-using Seathub.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 

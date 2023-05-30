@@ -1,8 +1,30 @@
-﻿@{
+﻿@model dartwebsite.models.PlayerViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p contenteditable="true">Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="row">
+        <div class="col-md-4">
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td>Name: </td>
+                        <td>@Html.TextBoxFor(m => m.playername)</td>
+                    </tr>
+                    <tr>
+                        <td>Password: </td>
+                        <td>@Html.TextBoxFor(m => m.playerpwd)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="log in met gegevens" class="btn btn-primary" /></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ActionLink("Nog geen account? Registreer hier", "Register")</td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
 </div>
