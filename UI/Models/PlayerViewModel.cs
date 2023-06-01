@@ -1,6 +1,5 @@
 ﻿using DAL;
-using Models;
-namespace dartwebsite.models
+namespace UI.Models
 {
     public class PlayerViewModel
     {
@@ -9,6 +8,8 @@ namespace dartwebsite.models
 
         public string playerpwd { get; set; }
         public int score { get; set; }
+
+        public bool IsSelected { get; set; }
 
         public PlayerViewModel(PlayerModel playermodel)
         {

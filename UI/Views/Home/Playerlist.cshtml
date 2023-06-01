@@ -1,5 +1,8 @@
-﻿@model List<dartwebsite.models.PlayerViewModel>
+﻿@model List<UI.Models.PlayerViewModel>
 
+<h2>select players</h2>
+@using (Html.BeginForm("PlayersToGame", "Game", null, FormMethod.Post))
+{
 <table class="table">
     <thead>
         <tr>
@@ -10,17 +13,12 @@
                 @Html.DisplayNameFor(model => model[0].playername)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].playerpwd)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model[0].score)
             </th>
             @* <th> *@
             @*     @Html.DisplayNameFor(model => model.UserPwd) *@
             @* </th> *@
-            <th class="text-end pe-5">
-                Acties
-            </th>
+            
         </tr>
     </thead>
     <tbody>
@@ -34,15 +32,17 @@
                     @Html.DisplayFor(modelItem => item.playername)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(modelItem => item.playerpwd)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.score)
                 </td>
                 @* <td> *@
                 @*     @Html.DisplayFor(modelItem => item.UserPwd) *@
                 @* </td> *@
+                <td>
+                    <input type="checkbox" name="players[@item.playername].IsSelected" checked="@item.IsSelected">
+                </td>
             </tr>
         }
     </tbody>
 </table>
+    <button type="submit">choose game</button>
+}

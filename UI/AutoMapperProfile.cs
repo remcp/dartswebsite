@@ -1,5 +1,5 @@
 using AutoMapper;
-using dartwebsite.models;
+using UI.Models;
 using Models;
 
 namespace Seathub.DAL;

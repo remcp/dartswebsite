@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using dartwebsite.models;
+using UI.Models;
 using IBLL.Collections;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -32,19 +32,43 @@ namespace dartswebsite.Controllers
             return View();
         }
 
-        public ActionResult GameSelect()
+        public ActionResult Register()
         {
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAccount(string playername, string playerpwd)
+        {
+            PlayerViewModel viewplayer = new PlayerViewModel();
+            viewplayer.playername = playername;
+            viewplayer.playerpwd = playerpwd;
+
+            Player player = _mapper.Map<Player>(viewplayer);
+            _PlayerCollection.InsertPlayer(player);
+            return RedirectToAction("Playerlist");
         }
 
         public ActionResult Playerlist()
         {
             List<Player> players = _PlayerCollection.GetAllPlayers().Result.ToList();
 
-            List<PlayerViewModel> viewlist = (List<PlayerViewModel>)players.Select(r => _mapper.Map<Player>(r));
+            List<PlayerViewModel> viewlist = players.Select(r => _mapper.Map<PlayerViewModel>(r)).ToList();
+            foreach (PlayerViewModel player in viewlist) 
+            {
+                player.IsSelected = false;           
+            }
+            return View(viewlist);
+        }
 
-            return View();
+        [HttpPost]
+        public ActionResult PlayersToGame(List<PlayerViewModel> players)
+        {
+            var selectedPlayers = players.Where(p => p.IsSelected).ToList();
+
+
+            return RedirectToAction("Players");
         }
 
         public ActionResult Login(PlayerViewModel? player)

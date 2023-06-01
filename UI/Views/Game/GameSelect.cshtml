@@ -1,0 +1,35 @@
+﻿@model Tuple<List<UI.Models.PlayerViewModel>, List<UI.Models.GameViewModel>>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2[0].gamemode)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item2)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gamemode)
+                </td>
+                <td>
+                    @using (Html.BeginForm("Edit", "Reservation", new { id = item.Game_id }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="modal-body text-start">
+                            <!-- choose game -->
+                            <div class="select-wrapper mb-4">
+                                <button type="submit" class="btn btn-primary">choose game</button>
+                                <label>Workspace</label>
+                            </div>
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button type="submit">choose game</button>
