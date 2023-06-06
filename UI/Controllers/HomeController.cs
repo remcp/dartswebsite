@@ -21,12 +21,6 @@ namespace dartswebsite.Controllers
             _PlayerCollection = playerCollection;
             _mapper = mapper;
         }
-        public ActionResult ShowData()
-        {
-            PlayerViewModel player = new PlayerViewModel() { id = 2, playername = "bert", score=501 };
-
-            return View(player);
-        }
         public ActionResult Privacy()
         {
             return View();
@@ -52,6 +46,7 @@ namespace dartswebsite.Controllers
 
         public ActionResult Playerlist()
         {
+
             List<Player> players = _PlayerCollection.GetAllPlayers().Result.ToList();
 
             List<PlayerViewModel> viewlist = players.Select(r => _mapper.Map<PlayerViewModel>(r)).ToList();

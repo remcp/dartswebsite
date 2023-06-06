@@ -11,4 +11,5 @@ public interface IPlayerdata
     Task<Player> GetPlayer(int id);
     Task InsertPlayer(Player player);
     Task UpdatePlayer(Player player);
+    Task UpdateScore(Player player, int input);
 }

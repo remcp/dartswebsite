@@ -52,8 +52,15 @@ namespace DAL.Data
 
             _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Players_InsertPlayer", parameters: new { Iplayername = playerdto.Name,Iplayerpwd = playerdto.Password, Iscore = playerdto.Score });
             return Task.CompletedTask;
-        } 
+        }
+        public Task UpdateScore(Player player, int score)
+        {
+            PlayerModel playerdto = _mapper.Map<PlayerModel>(player);
 
+            _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Players_UpdateScore", parameters: new { Iplayername = playerdto.Name, Iscore = score });
+            Player playermodel = _mapper.Map<Player>(player);
+            return Task.CompletedTask;
+        }
 
         public Task UpdatePlayer(Player player) => _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Players_updateplayer", new { playername = player.playername, score = player.score });
 

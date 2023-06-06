@@ -18,7 +18,6 @@
             @* <th> *@
             @*     @Html.DisplayNameFor(model => model.UserPwd) *@
             @* </th> *@
-            
         </tr>
     </thead>
     <tbody>
@@ -38,11 +37,11 @@
                 @*     @Html.DisplayFor(modelItem => item.UserPwd) *@
                 @* </td> *@
                 <td>
-                    <input type="checkbox" name="players[@item.playername].IsSelected" checked="@item.IsSelected">
+                    <input type="checkbox" name="players" value="@item.playername" checked="@item.IsSelected">
                 </td>
             </tr>
         }
     </tbody>
 </table>
-    <button type="submit">choose game</button>
+ <button type="submit">choose game</button>
 }

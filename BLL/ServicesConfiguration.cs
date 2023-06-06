@@ -9,5 +9,6 @@ public static class ServicesConfiguration
     public static void AddLogicServices(this IServiceCollection services)
     {
         services.AddSingleton<IPlayerCollection, PlayerCollection>();
+        services.AddSingleton<IGameCollection, GameCollection>();
     }
 }

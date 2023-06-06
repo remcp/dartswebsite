@@ -1,0 +1,53 @@
+﻿@model Tuple<List<UI.Models.PlayerViewModel>, int>
+
+<h2>select players</h2>
+@using (Html.BeginForm("UpdateScore", "Game", new {turn = Model.Item2}, FormMethod.Post))
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1[0].playername)
+                </th>
+                <th>
+                    @Html.DisplayName("turn")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1[0].score)
+                </th>
+                <th>
+                    @Html.DisplayName("finish")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+                int turn = Model.Item2;
+            }
+            @foreach (var item in Model.Item1)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.playername)
+                    </td>
+                    <td>
+                        @if (i == turn) { @Html.DisplayName("x"); }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.score)
+                    </td>
+                    <td>
+                        <p>in progres</p>
+                        <input hidden="hidden" name="players" value="@item.playername">
+                    </td>
+                    
+                </tr>
+                
+                i++;
+            }
+        </tbody>
+    </table>
+    <input name="input">
+    <button type="submit">input score</button>
+}

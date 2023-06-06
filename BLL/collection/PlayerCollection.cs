@@ -65,5 +65,12 @@ namespace BLL.collection
                 throw new Exception("foute inloggegevens");
             }
         }
+
+        public async Task<Player> UpdateScore(Player player, int input)
+        {
+            player = player.SetScore(player, input);
+            await _data.UpdateScore(player, input);
+            return player;
+        }
     }
 }

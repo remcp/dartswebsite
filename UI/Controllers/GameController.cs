@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.collection;
+using DAL;
 using IBLL.Collections;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -15,30 +16,73 @@ namespace UI.Controllers
         private readonly IMapper _mapper;
 
         public GameController(IPlayerCollection playerCollection,
-            IMapper mapper)
+            IMapper mapper, IGameCollection gamecollection)
         {
             _PlayerCollection = playerCollection;
             _mapper = mapper;
+            _GameCollection = gamecollection;
         }
 
         [HttpPost]
-        public ActionResult PlayersToGame(List<PlayerViewModel> players)
+        public ActionResult PlayersToGame(List<string> players)
         {
-            var selectedPlayers = players.Where(p => p.IsSelected).ToList();
-
-
-            return RedirectToAction("Gameselect", new {selectedPlayers});
+            return RedirectToAction("GameSelect", new {players = players});
         }
 
-        public ActionResult GameSelect(List<PlayerViewModel> players)
+        public ActionResult GameSelect(List<string> players)
         {
+            //List<PlayerViewModel> playerlist = new List<PlayerViewModel>();
+            //foreach (var player in players)
+            //{
+            //    playerlist.Add(_mapper.Map<PlayerViewModel>(_PlayerCollection.GetPlayerByName(player).Result));
+            //}
+
             List<Game> games = _GameCollection.GetAllGames().Result.ToList();
             List<GameViewModel> viewgames = games.Select(r => _mapper.Map<GameViewModel>(r)).ToList();
 
 
-            var tupleModel = new Tuple<List<PlayerViewModel>, List<GameViewModel>>(players, viewgames);
+            var tupleModel = new Tuple<List<string>, List<GameViewModel>>(players, viewgames);
 
             return View(tupleModel);
+        }
+
+        public ActionResult Game(List<string> players, int beginscore)
+        {
+            List<PlayerViewModel> playerlist = new List<PlayerViewModel>();
+            foreach (var player in players)
+            {
+                Player playermodel = _PlayerCollection.GetPlayerByName(player).Result;
+                //playermodel.SetScore(beginscore);
+                playerlist.Add(_mapper.Map<PlayerViewModel>(playermodel));
+            }
+            var tupleModel = new Tuple<List<PlayerViewModel>, int>(playerlist, 0);
+            return View(tupleModel);
+        }
+
+        public ActionResult UpdateScore(List<string> players, int turn, int input)
+        {
+            List<PlayerViewModel> playerlist = new List<PlayerViewModel>();
+            foreach (var player in players)
+            {
+                
+                Player playermodel = _PlayerCollection.GetPlayerByName(player).Result;
+                if (playerlist.Count - 1 == turn)
+                {
+                    playermodel = _GameCollection.UpdateScore(playermodel, input);
+                }
+                //playermodel.SetScore(beginscore);
+                playerlist.Add(_mapper.Map<PlayerViewModel>(playermodel));
+            }
+
+            turn++;
+            if(turn > players.Count-1)
+            {
+                turn = 0;
+            }
+
+            var tupleModel = new Tuple<List<PlayerViewModel>, int>(playerlist, turn);
+
+            return View("Game", tupleModel);
         }
     }
 }
