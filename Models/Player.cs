@@ -14,9 +14,15 @@ namespace Models
         public string playerpwd { get; private set; }
         public int score { get; private set; }
 
-        public Player SetScore(Player player, int input)
+        public Player UpdateScore(Player player, int input)
         {
             player.score =  player.score - input;
+            return player;
+        }
+
+        public Player SetScore(Player player, int input)
+        {
+            player.score = input;
             return player;
         }
     }

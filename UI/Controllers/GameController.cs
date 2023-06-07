@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using BLL.collection;
 using DAL;
 using IBLL.Collections;
@@ -52,7 +53,7 @@ namespace UI.Controllers
             foreach (var player in players)
             {
                 Player playermodel = _PlayerCollection.GetPlayerByName(player).Result;
-                //playermodel.SetScore(beginscore);
+                _PlayerCollection.SetScore(playermodel, beginscore);
                 playerlist.Add(_mapper.Map<PlayerViewModel>(playermodel));
             }
             var tupleModel = new Tuple<List<PlayerViewModel>, int>(playerlist, 0);
@@ -62,24 +63,44 @@ namespace UI.Controllers
         public ActionResult UpdateScore(List<string> players, int turn, int input)
         {
             List<PlayerViewModel> playerlist = new List<PlayerViewModel>();
-            foreach (var player in players)
+            try
             {
-                
-                Player playermodel = _PlayerCollection.GetPlayerByName(player).Result;
-                if (playerlist.Count - 1 == turn)
+                foreach (var player in players)
                 {
-                    playermodel = _GameCollection.UpdateScore(playermodel, input);
+
+                    Player playermodel = _PlayerCollection.GetPlayerByName(player).Result;
+                    if (playerlist.Count == turn)
+                    {
+                        playermodel = _PlayerCollection.UpdateScore(playermodel, input).Result;
+                    }
+                    string outtext = _PlayerCollection.GetOutText(playermodel).Result;
+                    PlayerViewModel viewplayer = _mapper.Map<PlayerViewModel>(playermodel);
+                    viewplayer.outtext = outtext;
+                    playerlist.Add(viewplayer);
+
                 }
-                //playermodel.SetScore(beginscore);
-                playerlist.Add(_mapper.Map<PlayerViewModel>(playermodel));
             }
-
-            turn++;
-            if(turn > players.Count-1)
+            catch
             {
-                turn = 0;
+                playerlist = new List<PlayerViewModel>();
+                foreach (var player in players)
+                {
+                    
+                    Player playermodel = _PlayerCollection.GetPlayerByName(player).Result;
+                    string outtext = _PlayerCollection.GetOutText(playermodel).Result;
+                    PlayerViewModel viewplayer = _mapper.Map<PlayerViewModel>(playermodel);
+                    viewplayer.outtext = outtext;
+                    playerlist.Add(viewplayer);
+                }
+                var wronginput = new Tuple<List<PlayerViewModel>, int>(playerlist, turn);
+                return View("Game", wronginput);
             }
-
+            turn++;
+                if (turn > players.Count - 1)
+                {
+                    turn = 0;
+                }
+            
             var tupleModel = new Tuple<List<PlayerViewModel>, int>(playerlist, turn);
 
             return View("Game", tupleModel);

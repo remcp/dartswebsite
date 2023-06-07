@@ -11,6 +11,7 @@ namespace UI.Models
 
         public bool IsSelected { get; set; }
 
+        public string outtext { get; set; }
         public PlayerViewModel(PlayerModel playermodel)
         {
             id = playermodel.Player_id;

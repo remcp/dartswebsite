@@ -7,10 +7,11 @@ namespace BLL.collection
     public class PlayerCollection : IPlayerCollection
     {
         private readonly IPlayerdata _data;
-
+        CheckScore checkscore { get; set; }
         public PlayerCollection(IPlayerdata data)
         {
             _data = data;
+            checkscore = new CheckScore();
         }
 
         public async Task<List<Player>> GetAllPlayers()
@@ -68,9 +69,25 @@ namespace BLL.collection
 
         public async Task<Player> UpdateScore(Player player, int input)
         {
-            player = player.SetScore(player, input);
-            await _data.UpdateScore(player, input);
+            if (checkscore.LegalScore(input).Result == true)
+            {
+                player = player.UpdateScore(player, input);
+            }
+
+            await _data.UpdateScore(player);
             return player;
+        }
+        public async Task<Player> SetScore(Player player, int input)
+        {
+            player = player.SetScore(player, input);
+            await _data.UpdateScore(player);
+            return player;
+        }
+
+        public async Task<string> GetOutText(Player player)
+        {
+            string outtext = checkscore.canfinish(player.score).Result;
+            return outtext;
         }
     }
 }

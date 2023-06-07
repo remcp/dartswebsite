@@ -10,6 +10,5 @@ namespace BLL.collection
         Task<Game> GetGameByName(string name);
         Task InsertGame(Game Game);
         Task UpdateGame(Game Game);
-        Task<Player> UpdateScore(Player player, int input);
     }
 }

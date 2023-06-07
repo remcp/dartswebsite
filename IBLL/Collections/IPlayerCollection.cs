@@ -12,4 +12,9 @@ public interface IPlayerCollection
     Task UpdatePlayer(Player Player);
     Task DeletePlayer(int id);
     Task<bool> CheckCredentials(string name, string password);
+
+    Task<Player> UpdateScore(Player player, int input);
+    Task<Player> SetScore(Player player, int input);
+
+    Task<string> GetOutText(Player player);
 }
