@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using BLL.collection;
 using DAL;
 using IBLL.Collections;
@@ -74,7 +73,11 @@ namespace UI.Controllers
                     try
                     {
                         playermodel = _PlayerCollection.GetPlayerByName(player).Result;
-
+                    }
+                    catch
+                    {
+                        ViewBag.ErrorMessage = "connection to database could not be made, contact the admin";
+                    }
                     if (playerlist.Count == turn)
                     {
                         playermodel = _PlayerCollection.UpdateScore(playermodel, input).Result;
@@ -83,11 +86,7 @@ namespace UI.Controllers
                     PlayerViewModel viewplayer = _mapper.Map<PlayerViewModel>(playermodel);
                     viewplayer.outtext = outtext;
                     playerlist.Add(viewplayer);
-                    }
-                    catch(MySql.Data.MySqlClient.MySqlException ex)
-                    {
-                        ViewBag.ErrorMessage = "connection to database could not be made";
-                    }
+                    
                 }
             }
             catch
@@ -103,6 +102,7 @@ namespace UI.Controllers
                     playerlist.Add(viewplayer);
                 }
                 var wronginput = new Tuple<List<PlayerViewModel>, int>(playerlist, turn);
+                ViewBag.ErrorMessage = "impossible score";
                 return View("Game", wronginput);
             }
             turn++;
