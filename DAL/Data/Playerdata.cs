@@ -56,9 +56,15 @@ namespace DAL.Data
         public Task UpdateScore(Player player)
         {
             PlayerModel playerdto = _mapper.Map<PlayerModel>(player);
-
-            _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Players_UpdateScore", parameters: new { Iplayername = playerdto.Name, Iscore = player.score });
-            Player playermodel = _mapper.Map<Player>(player);
+            try
+            {
+                _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Players_UpdateScore", parameters: new { Iplayername = playerdto.Name, Iscore = player.score });
+            }
+            catch 
+            {
+                throw new Exception();
+            }
+                Player playermodel = _mapper.Map<Player>(player);
             return Task.CompletedTask;
         }
 

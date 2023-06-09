@@ -4,6 +4,7 @@ using BLL.collection;
 using DAL;
 using IBLL.Collections;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Models;
 using UI.Models;
 
@@ -60,6 +61,8 @@ namespace UI.Controllers
             return View(tupleModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateScore(List<string> players, int turn, int input)
         {
             List<PlayerViewModel> playerlist = new List<PlayerViewModel>();
@@ -67,8 +70,11 @@ namespace UI.Controllers
             {
                 foreach (var player in players)
                 {
+                    Player playermodel = new();
+                    try
+                    {
+                        playermodel = _PlayerCollection.GetPlayerByName(player).Result;
 
-                    Player playermodel = _PlayerCollection.GetPlayerByName(player).Result;
                     if (playerlist.Count == turn)
                     {
                         playermodel = _PlayerCollection.UpdateScore(playermodel, input).Result;
@@ -77,7 +83,11 @@ namespace UI.Controllers
                     PlayerViewModel viewplayer = _mapper.Map<PlayerViewModel>(playermodel);
                     viewplayer.outtext = outtext;
                     playerlist.Add(viewplayer);
-
+                    }
+                    catch(MySql.Data.MySqlClient.MySqlException ex)
+                    {
+                        ViewBag.ErrorMessage = "connection to database could not be made";
+                    }
                 }
             }
             catch
