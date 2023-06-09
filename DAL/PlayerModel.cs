@@ -1,4 +1,5 @@
-﻿namespace DAL
+﻿using Models;
+namespace DAL
 {
     public class PlayerModel
     {

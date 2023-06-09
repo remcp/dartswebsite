@@ -2,8 +2,8 @@
 {
     public class GameViewModel
     {
-        public int Game_id { get; set; }
-        public int gamemode { get; set; }
-        public int score { get; set; }
+        public int Game_id { get; private set; }
+        public int gamemode { get; private set; }
+        public int score { get; private set; }
     }
 }

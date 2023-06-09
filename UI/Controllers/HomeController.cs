@@ -35,9 +35,8 @@ namespace dartswebsite.Controllers
         [HttpPost]
         public ActionResult CreateAccount(string playername, string playerpwd)
         {
-            PlayerViewModel viewplayer = new PlayerViewModel();
-            viewplayer.playername = playername;
-            viewplayer.playerpwd = playerpwd;
+            PlayerViewModel viewplayer = new PlayerViewModel(playername,playerpwd);
+
 
             Player player = _mapper.Map<Player>(viewplayer);
             _PlayerCollection.InsertPlayer(player);
