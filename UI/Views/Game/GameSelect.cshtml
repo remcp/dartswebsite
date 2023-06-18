@@ -16,7 +16,7 @@
                     @Html.DisplayFor(modelItem => item.gamemode)
                 </td>
                 <td>
-                    @using (Html.BeginForm("Game", "Game", new {players = Model.Item1, beginscore = item.gamemode }, FormMethod.Post))
+                    @using (Html.BeginForm("MakeGame", "Game", new {players = Model.Item1, beginscore = item.gamemode }, FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="modal-body text-start">

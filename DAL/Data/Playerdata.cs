@@ -25,7 +25,7 @@ namespace DAL.Data
 
         public async Task<Models.Player> GetPlayer(int id)
         {
-            var results = await _db.LoadData<Player, dynamic>(storedprocedure: "u156573p149336_bullseyebuddy.sp_Players_getplayer", new { Id = id });
+            var results = await _db.LoadData<PlayerModel, dynamic>(storedprocedure: "u156573p149336_bullseyebuddy.sp_Players_getplayer", new { IPlayerid = id });
 
             return _mapper.Map<Models.Player>(results.FirstOrDefault());
         }

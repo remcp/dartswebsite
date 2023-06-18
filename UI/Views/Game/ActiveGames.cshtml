@@ -1,0 +1,48 @@
+﻿@model Tuple<List<string>, List<string>, List<UI.Models.GameViewModel>>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Item3[0].gamemode)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => modelItem.Item3[0].gamemode)
+			</td>
+			<td>
+				@using (Html.BeginForm("Game", "Game", new { players = Model.Item1, beginscore = Model.Item3[0].gamemode }, FormMethod.Post))
+				{
+					@Html.AntiForgeryToken()
+					<div class="modal-body text-start">
+						<!-- choose game -->
+						<div class="select-wrapper mb-4">
+							<button type="submit" class="btn btn-primary">choose game</button>
+						</div>
+					</div>
+				}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => modelItem.Item3[1].gamemode)
+			</td>
+			<td>
+				@using (Html.BeginForm("Game", "Game", new { players = Model.Item2, beginscore = Model.Item3[1].gamemode }, FormMethod.Post))
+				{
+					@Html.AntiForgeryToken()
+					<div class="modal-body text-start">
+						<!-- choose game -->
+						<div class="select-wrapper mb-4">
+							<button type="submit" class="btn btn-primary">choose game</button>
+						</div>
+					</div>
+				}
+			</td>
+		</tr>
+	</tbody>
+</table>

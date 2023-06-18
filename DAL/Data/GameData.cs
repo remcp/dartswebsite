@@ -25,7 +25,7 @@ namespace DAL.Data
 
         public async Task<Models.Game> GetGame(int id)
         {
-            var results = await _db.LoadData<Game, dynamic>(storedprocedure: "u156573p149336_bullseyebuddy.sp_Games_getGame", new { Id = id });
+            var results = await _db.LoadData<GameModel, dynamic>(storedprocedure: "u156573p149336_bullseyebuddy.sp_Games_getGame", new { Id = id });
 
             return _mapper.Map<Models.Game>(results.FirstOrDefault());
         }
@@ -46,8 +46,34 @@ namespace DAL.Data
             return modelGame;
         }
 
-        public Task InsertGame(Game Game) => _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Games_addGame", parameters: new { Game.gamemode });
+        public Task InsertGame(Game game)
+        {
+            GameModel gamedto = _mapper.Map<GameModel>(game);
+            _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Games_addGame", parameters: new { gamedto.gamemode });
+            return Task.CompletedTask;
+        }
+        public async Task<IEnumerable<Models.Player>> GetPlayersActiveGame(int id)
+        {
+            var results = await _db.LoadData<PlayerModel, dynamic>(storedprocedure: "u156573p149336_bullseyebuddy.sp_Join_GetPlayersActiveGame", new { Igameid = id });
 
+            return results.Select(p => _mapper.Map<Models.Player>(p));
+        }
+
+        public Task InsertPlayer(int gameid, Player player)
+        {
+            PlayerModel playerdto = _mapper.Map<PlayerModel>(player);
+            GameModel gamedto = new();
+            gamedto.Game_id = gameid;
+            _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Join_InsertPlayer", parameters: new { Iplayerid = playerdto.Player_id, IGameid = gamedto.Game_id });
+            return Task.CompletedTask;
+        }
+        public Task DeleteActiveGame(int gameid)
+        {
+            GameModel gamedto = new();
+            gamedto.Game_id = gameid;
+            _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Join_RemoveGamePlayers", parameters: new { IGameid = gamedto.Game_id});
+            return Task.CompletedTask;
+        }
 
         public Task UpdateGame(Game Game) => _db.Savedata(storedprocedure: "u156573p149336_bullseyebuddy.sp_Games_updateGame", new { Gamename = Game.gamemode, score = Game.score });
 
